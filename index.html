@@ -28,7 +28,7 @@
         z-index: 0;
     }
 
-    .login-box {
+    .login-box, .message-box {
         position: relative;
         z-index: 1;
         background: rgba(255, 255, 255, 0.85);
@@ -36,7 +36,14 @@
         border-radius: 12px;
         box-shadow: 0 0 20px rgba(0,0,0,0.5);
         text-align: center;
+    }
+
+    .login-box {
         width: 400px;
+    }
+
+    .message-box {
+        width: 500px;
     }
 
     h1 {
@@ -68,19 +75,12 @@
         color: #b22222;
     }
 
-    #message, #error {
+    #error {
         margin-top: 20px;
         font-size: 1.3em;
         font-weight: bold;
-        display: none;
-    }
-
-    #message {
-        color: green;
-    }
-
-    #error {
         color: red;
+        display: none;
     }
 
     #main-message {
@@ -88,27 +88,26 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-size: 3em;
-        color: green;
+        font-size: 2.5em;
         font-weight: bold;
         display: none;
         z-index: 1;
         text-align: center;
     }
+
 </style>
 </head>
 <body>
 <div class="login-box" id="login-box">
     <h1>Welkom Sinterklaas!</h1>
-    <p>Voer het geheime wachtwoord in:</p>
+    <p>Voer het wachtwoord in:</p>
     <input type="text" id="password" placeholder="Wachtwoord zichtbaar">
     <br>
     <button onclick="checkPassword()">Inloggen</button>
     <div id="error"></div>
-    <div id="message">De cadeaukamer is geopend 🎁</div>
 </div>
 
-<div id="main-message">De cadeaukamer is geopend 🎁</div>
+<div class="message-box" id="main-message">De cadeaukamer is geopend 🎁</div>
 
 <audio id="buzzer" src="sounds/wrong.wav"></audio>
 <audio id="loginSound" src="sounds/good.wav"></audio>
@@ -116,7 +115,6 @@
 <script>
 function checkPassword() {
     const pwd = document.getElementById('password').value;
-    const message = document.getElementById('message');
     const error = document.getElementById('error');
     const loginBox = document.getElementById('login-box');
     const mainMessage = document.getElementById('main-message');
@@ -125,19 +123,17 @@ function checkPassword() {
         // Goed wachtwoord
         document.getElementById('loginSound').play();
         error.style.display = 'none';
-        message.style.display = 'none';
 
         // Verberg login-box
         loginBox.style.display = 'none';
 
-        // Toon groot bericht
+        // Toon groot bericht in eigen tekstvak
         mainMessage.style.display = 'block';
     } else {
         // Fout wachtwoord
         document.getElementById('buzzer').play();
         error.textContent = 'Fout wachtwoord! Probeer opnieuw.';
         error.style.display = 'block';
-        message.style.display = 'none';
     }
 }
 </script>
