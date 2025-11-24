@@ -3,19 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <title>Sinterklaas ZIP Download</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1</script>
+
+<!-- JSZip -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<!-- FileSaver -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-tyle="text-align:center; font-family:sans-serif; padding-top:50px;">
-    <h1>Sinterklaas Website Download</h1>
-    <button onclick="downloadZip()" style="padding:15px; font-size:1.2em; background:#b22222; color:gold; border:none; border-radius:8px; cursor:pointer;">
-        Download ZIP
-    </button>
- 
+
+</head>
+<body style="text-align:center; font-family:sans-serif; padding-top:50px;">
+
+<h1>Sinterklaas Website Download</h1>
+
+<button onclick="downloadZip()" 
+style="padding:15px; font-size:1.2em; background:#b22222; color:gold; border:none; border-radius:8px; cursor:pointer;">
+    Download ZIP
+</button>
+
 <script>
 function downloadZip() {
     const zip = new JSZip();
- 
-    // Voeg index.html toe
+
+    // index.html in ZIP
     const indexHtml = `<!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -39,7 +48,10 @@ button:hover { background: gold; color: #b22222; }
 <br>
 <button onclick="checkPassword()">Inloggen</button>
 </div>
-<audio id="buzzer" src="sounds/buzzer.mpp3</audio>
+
+<audio id="buzzer" src="sounds/buzzer.mp3"></audio>
+<audio id="loginSound" src="sounds/login.mp3"></audio>
+
 <script>
 function checkPassword() {
 const pwd = document.getElementById('password').value;
@@ -55,8 +67,8 @@ alert('Fout wachtwoord! Probeer opnieuw.');
 </body>
 </html>`;
     zip.file("index.html", indexHtml);
- 
-    // Voeg cadeaukamer.html toe
+
+    // cadeaukamer.html in ZIP
     const cadeauHtml = `<!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -76,17 +88,19 @@ body { margin: 0; padding: 0; background: #b22222; overflow: hidden; font-family
 <div class="message">🎁 De cadeaukamer is geopend 🎁</div>
 </body>
 </html>`;
+    
     zip.file("cadeaukamer.html", cadeauHtml);
- 
-    // Voeg lege mappen toe
+
+    // lege mappen
     zip.folder("sounds");
     zip.folder("images");
- 
-    // Genereer ZIP
+
+    // genereer ZIP
     zip.generateAsync({type:"blob"}).then(function(content) {
         saveAs(content, "sinterklaas-site.zip");
     });
 }
 </script>
+
 </body>
 </html>
